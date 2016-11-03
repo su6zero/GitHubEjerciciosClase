@@ -1,0 +1,17 @@
+Esther,Rovira,10
+Sergi,Bejarano,5
+Roger,Cabrera,3
+Dani,Callejas,4
+Javi,Callejas,4
+Musta,Callejas,4
+Xavi,Callejas,4
+Alejandro,Callejas,4
+Ivan,Callejas,4
+Aaron,Callejas,4
+Edhu,Callejas,4
+Miguel,Callejas,4
+Miquel,Callejas,4
+Miguel,Tello,4
+Eric,Callejas,4
+Marc,Callejas,4
+Israel,Callejas,4

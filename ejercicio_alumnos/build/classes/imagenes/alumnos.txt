@@ -1,0 +1,3 @@
+David,Marin,4
+Sergio,Jimenez,6
+Miguel,Suspendido,100

@@ -1,0 +1,546 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vista;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Alumnos;
+
+/**
+ *
+ * @author Israel
+ */
+public class PonerFaltas extends javax.swing.JFrame {
+
+//Variable de posicion del array
+
+int i = 0;
+    
+//Creamos ArrayList de Alumnos
+    
+ArrayList<Alumnos> listaAlumnos = new ArrayList<Alumnos>();
+    
+    /**
+     * Creates new form PonerFaltas
+     */
+    public PonerFaltas() {
+        initComponents();
+    }
+
+public void inicializar (){
+    Alumnos alu1,alu2,alu3,alu4,alu5,alu6,alu7,alu8,alu9,alu10,alu11,alu12,alu13,alu14,alu15,alu16,alu17;
+    alu1 = new Alumnos("Esther","Rovira",10);
+    alu2 = new Alumnos("Sergi","Bejarano",5);
+    alu3 = new Alumnos("Roger","Cabrera",3);
+    alu4 = new Alumnos("Dani","Callejas",4);
+    alu5 = new Alumnos("Javi","Callejas",4);
+    alu6 = new Alumnos("Musta","Callejas",4);
+    alu7 = new Alumnos("Xavi","Callejas",4);
+    alu8 = new Alumnos("Alejandro","Callejas",4);
+    alu9 = new Alumnos("Ivan","Callejas",4);
+    alu10 = new Alumnos("Aaron","Callejas",4);
+    alu11 = new Alumnos("Edhu","Callejas",4);
+    alu12 = new Alumnos("Miguel","Callejas",4);
+    alu13 = new Alumnos("Miquel","Callejas",4);
+    alu14 = new Alumnos("Miguel","Tello",4);
+    alu15 = new Alumnos("Eric","Callejas",4);
+    alu16 = new Alumnos("Marc","Callejas",4);
+    alu17 = new Alumnos("Israel","Callejas",4);
+    listaAlumnos.add(alu1);
+    listaAlumnos.add(alu2);
+    listaAlumnos.add(alu3);
+    listaAlumnos.add(alu4);
+    listaAlumnos.add(alu5);
+    listaAlumnos.add(alu6);
+    listaAlumnos.add(alu7);
+    listaAlumnos.add(alu8);
+    listaAlumnos.add(alu9);
+    listaAlumnos.add(alu10);
+    listaAlumnos.add(alu11);
+    listaAlumnos.add(alu12);
+    listaAlumnos.add(alu13);
+    listaAlumnos.add(alu14);
+    listaAlumnos.add(alu15);
+    listaAlumnos.add(alu16);
+    listaAlumnos.add(alu17);
+    //leerFichero();
+    this.jTNombre.setText(listaAlumnos.get(0).getNombre());
+    this.jTApellido.setText(listaAlumnos.get(0).getApellido());
+    this.jTFaltas.setText(String.valueOf(listaAlumnos.get(0).getFaltas()));
+    this.jBPrimero.setEnabled(false);
+    this.jBAnterior.setEnabled(false);
+}   
+
+//Funciones en segundo plano
+
+public void refrescar() {
+    
+    this.jTNombre.setText("");
+    this.jTApellido.setText("");
+    this.jTFaltas.setText("");
+    
+}
+
+private void mostrar(int i) {
+    this.jTNombre.setText(listaAlumnos.get(i).getNombre());
+    this.jTApellido.setText(listaAlumnos.get(i).getApellido());
+    this.jTFaltas.setText(String.valueOf(listaAlumnos.get(i).getFaltas()));
+}
+//Esta funcion guarda los alumnos en un fichero de texto
+
+private void escribirFichero () {
+    
+    try {
+        BufferedWriter datos = new BufferedWriter(new FileWriter ("C:\\Users\\Israel\\repositorio\\ponerfaltas\\build\\classes\\imagenes\\alumnos1.txt"));
+        for (Alumnos alu:listaAlumnos) {
+            datos.write(alu.getNombre()+",");
+            datos.write(alu.getApellido()+",");
+            datos.write(String.valueOf(alu.getFaltas()));
+            datos.newLine();
+        }
+        datos.close();
+        JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.");
+        } catch (IOException ex) {
+        Logger.getLogger(PonerFaltas.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Esto no funciona por que el fichero alumnos1.txt no existe.");
+    }
+    
+}
+
+//Esta funcion lee el fichero de texto y los añade a los alumnos del array.
+
+private void leerFichero () {
+    try {
+        FileReader lector = new FileReader("C:\\Users\\Israel\\repositorio\\ponerfaltas\\build\\classes\\imagenes\\alumnos.txt");
+        BufferedReader datoslector = new BufferedReader(lector);
+        String cadena = "";
+        while ((cadena = datoslector.readLine()) != null) {
+            Alumnos alu = new Alumnos();
+            String columna[] = cadena.split(",");
+            alu.setNombre(columna[0]);
+            alu.setApellido(columna[1]);
+            alu.setFaltas(Integer.parseInt(columna[2]));
+            listaAlumnos.add(alu);
+        }
+    } catch (IOException ex) {
+        Logger.getLogger(PonerFaltas.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Esto no funciona por que el fichero alumnos.txt no existe.");
+    }
+    
+}
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTNombre = new javax.swing.JTextField();
+        jTApellido = new javax.swing.JTextField();
+        jTFaltas = new javax.swing.JTextField();
+        jBPrimero = new javax.swing.JButton();
+        jBAnterior = new javax.swing.JButton();
+        jBSiguiente = new javax.swing.JButton();
+        jBUltimo = new javax.swing.JButton();
+        jTFoto = new javax.swing.JTextField();
+        jBAñadir = new javax.swing.JButton();
+        jBPQuitar = new javax.swing.JButton();
+        jBAleatorio = new javax.swing.JToggleButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 153, 255));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado Alumnos"));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Apellidos", "Faltas"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(207, 207, 207))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Alumno"));
+
+        jLabel1.setText("Faltas");
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("Apellido");
+
+        jBPrimero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/primer.png"))); // NOI18N
+        jBPrimero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPrimeroActionPerformed(evt);
+            }
+        });
+
+        jBAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/enrere.png"))); // NOI18N
+        jBAnterior.setMnemonic('A');
+        jBAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAnteriorActionPerformed(evt);
+            }
+        });
+
+        jBSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/endavant.png"))); // NOI18N
+        jBSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSiguienteActionPerformed(evt);
+            }
+        });
+
+        jBUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ultim.png"))); // NOI18N
+        jBUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBUltimoActionPerformed(evt);
+            }
+        });
+
+        jTFoto.setEditable(false);
+        jTFoto.setBackground(new java.awt.Color(255, 255, 255));
+        jTFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFotoActionPerformed(evt);
+            }
+        });
+
+        jBAñadir.setText("Añadir Usuario");
+
+        jBPQuitar.setText("Quitar Usuario");
+
+        jBAleatorio.setText("Aleatorio");
+        jBAleatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAleatorioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFoto)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jBPrimero)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAnterior))
+                    .addComponent(jBAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTNombre)
+                            .addComponent(jTApellido)
+                            .addComponent(jTFaltas)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jBSiguiente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBUltimo))
+                            .addComponent(jBPQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAleatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAleatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jBPQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jMenu2.setText("Options");
+
+        jMenuItem1.setText("Mostrar Listado");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Ocultar Listado");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Guardar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jTFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFotoActionPerformed
+
+    private void jBSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSiguienteActionPerformed
+        // TODO add your handling code here:
+        //Mostramos los botones anterior y primero
+            this.jBAnterior.setEnabled(true);
+            this.jBPrimero.setEnabled(true);
+            
+        if (i < this.listaAlumnos.size()-2) {
+            i = i + 1;
+            mostrar (i);
+        } else { 
+            if (i == this.listaAlumnos.size()-2) {
+                i = i + 1;
+                mostrar (i);
+                this.jBUltimo.setEnabled(false);
+                this.jBSiguiente.setEnabled(false);
+            }
+        }
+        
+    }//GEN-LAST:event_jBSiguienteActionPerformed
+
+    private void jBAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnteriorActionPerformed
+        // TODO add your handling code here:
+        //Mostramos los botones siguiente y último
+        this.jBSiguiente.setEnabled(true);
+            this.jBUltimo.setEnabled(true);
+        
+        if (i > 1) {
+            i = i - 1;
+            mostrar (i);
+            
+        } else{
+            if (i == 1){
+                i = i - 1;
+                mostrar (i);
+                this.jBPrimero.setEnabled(false);
+                this.jBAnterior.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jBAnteriorActionPerformed
+
+    private void jBPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrimeroActionPerformed
+        // TODO add your handling code here:
+        i = 0;
+        mostrar (i);
+        this.jBPrimero.setEnabled(false);
+        this.jBAnterior.setEnabled(false);
+        this.jBSiguiente.setEnabled(true);
+        this.jBUltimo.setEnabled(true);
+        
+    }//GEN-LAST:event_jBPrimeroActionPerformed
+
+    private void jBUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUltimoActionPerformed
+        // TODO add your handling code here:
+        i = listaAlumnos.size()-1;
+        mostrar (i);
+        this.jBUltimo.setEnabled(false);
+        this.jBSiguiente.setEnabled(false);
+        this.jBPrimero.setEnabled(true);
+        this.jBAnterior.setEnabled(true);
+    }//GEN-LAST:event_jBUltimoActionPerformed
+
+    private void jBAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAleatorioActionPerformed
+        // TODO add your handling code here:
+        i = 0 + (int)(Math.random() * listaAlumnos.size());
+        mostrar (i);
+    }//GEN-LAST:event_jBAleatorioActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        escribirFichero();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1.getModel();
+        Object fila[] = new Object[modelo.getColumnCount()]; 
+        for (int j = 0; j < this.listaAlumnos.size(); j++) {
+            
+            fila[0] = this.listaAlumnos.get(j).getNombre();
+            fila[1] = this.listaAlumnos.get(j).getApellido();
+            fila[2] = this.listaAlumnos.get(j).getFaltas();
+            
+            modelo.addRow(fila);
+                    
+            
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PonerFaltas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PonerFaltas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PonerFaltas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PonerFaltas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                PonerFaltas frame = new PonerFaltas();
+                frame.setVisible(true);
+                frame.inicializar();
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton jBAleatorio;
+    private javax.swing.JButton jBAnterior;
+    private javax.swing.JButton jBAñadir;
+    private javax.swing.JButton jBPQuitar;
+    private javax.swing.JButton jBPrimero;
+    private javax.swing.JButton jBSiguiente;
+    private javax.swing.JButton jBUltimo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTApellido;
+    private javax.swing.JTextField jTFaltas;
+    private javax.swing.JTextField jTFoto;
+    private javax.swing.JTextField jTNombre;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration//GEN-END:variables
+}
